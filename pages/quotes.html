@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes Generator - Samuel's Portfolio</title>
+    <link rel="stylesheet" href="styles/quotes.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>QUOTE GENERATOR</h2>
+            </div>
+            <div class="nav-links">
+                <a href="../link.html">🔗 Back to Links</a>
+                <a href="../index.html">🏠 Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="quotes-main">
+        <div class="container">
+            <!-- Quote Display Section -->
+            <div class="quote-section">
+                <div class="quote-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <div class="quote-content">
+                        <p class="quote-text" id="quoteText">
+                            The only way to do great work is to love what you do.
+                        </p>
+                        <p class="quote-author" id="quoteAuthor">
+                            - Steve Jobs
+                        </p>
+                    </div>
+                    <div class="quote-actions">
+                        <button class="btn-new-quote" onclick="generateNewQuote()">
+                            <i class="fas fa-sync-alt"></i>
+                            New Quote
+                        </button>
+                        <button class="btn-copy" onclick="copyQuote()">
+                            <i class="fas fa-copy"></i>
+                            Copy
+                        </button>
+                        <button class="btn-share" onclick="shareQuote()">
+                            <i class="fas fa-share"></i>
+                            Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quote Categories -->
+            <div class="categories-section">
+                <h2>Quote Categories</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterQuotes('motivational')">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Motivational</h3>
+                        <p>Inspiring quotes to fuel your ambition</p>
+                    </div>
+                    <div class="category-card" onclick="filterQuotes('success')">
+                        <i class="fas fa-trophy"></i>
+                        <h3>Success</h3>
+                        <p>Wisdom from successful leaders</p>
+                    </div>
+                    <div class="category-card" onclick="filterQuotes('wisdom')">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Wisdom</h3>
+                        <p>Timeless wisdom and life lessons</p>
+                    </div>
+                    <div class="category-card" onclick="filterQuotes('technology')">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>Technology</h3>
+                        <p>Insights from tech innovators</p>
+                    </div>
+                    <div class="category-card" onclick="filterQuotes('creativity')">
+                        <i class="fas fa-palette"></i>
+                        <h3>Creativity</h3>
+                        <p>Quotes to spark your creativity</p>
+                    </div>
+                    <div class="category-card" onclick="filterQuotes('leadership')">
+                        <i class="fas fa-users"></i>
+                        <h3>Leadership</h3>
+                        <p>Leadership principles and insights</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Quote Section -->
+            <div class="daily-quote-section">
+                <h2>Quote of the Day</h2>
+                <div class="daily-quote-card">
+                    <div class="daily-quote-content">
+                        <p class="daily-quote-text" id="dailyQuoteText">
+                            Innovation distinguishes between a leader and a follower.
+                        </p>
+                        <p class="daily-quote-author" id="dailyQuoteAuthor">
+                            - Steve Jobs
+                        </p>
+                    </div>
+                    <div class="daily-quote-date">
+                        <i class="fas fa-calendar-day"></i>
+                        <span id="currentDate"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Favorite Quotes -->
+            <div class="favorites-section">
+                <div class="favorites-header">
+                    <h2>Your Favorite Quotes</h2>
+                    <button class="btn-clear-favorites" onclick="clearFavorites()">
+                        <i class="fas fa-trash"></i>
+                        Clear All
+                    </button>
+                </div>
+                <div class="favorites-list" id="favoritesList">
+                    <div class="empty-favorites">
+                        <i class="fas fa-heart"></i>
+                        <p>No favorite quotes yet. Click the heart icon on any quote to add it to your favorites!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Random Quote Generator -->
+            <div class="generator-section">
+                <h2>Custom Quote Generator</h2>
+                <div class="generator-controls">
+                    <div class="control-group">
+                        <label for="quoteLength">Quote Length:</label>
+                        <select id="quoteLength">
+                            <option value="any">Any Length</option>
+                            <option value="short">Short (Under 50 characters)</option>
+                            <option value="medium">Medium (50-150 characters)</option>
+                            <option value="long">Long (Over 150 characters)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="quoteCategory">Category:</label>
+                        <select id="quoteCategory">
+                            <option value="all">All Categories</option>
+                            <option value="motivational">Motivational</option>
+                            <option value="success">Success</option>
+                            <option value="wisdom">Wisdom</option>
+                            <option value="technology">Technology</option>
+                            <option value="creativity">Creativity</option>
+                            <option value="leadership">Leadership</option>
+                        </select>
+                    </div>
+                    <button class="btn-generate" onclick="generateCustomQuote()">
+                        <i class="fas fa-magic"></i>
+                        Generate Quote
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quote Statistics -->
+            <div class="stats-section">
+                <h2>Quote Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-quote-right"></i>
+                        <div class="stat-number" id="totalQuotes">1,247</div>
+                        <div class="stat-label">Total Quotes</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-eye"></i>
+                        <div class="stat-number" id="quotesViewed">0</div>
+                        <div class="stat-label">Quotes Viewed</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-heart"></i>
+                        <div class="stat-number" id="favoriteCount">0</div>
+                        <div class="stat-label">Favorites</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-share-alt"></i>
+                        <div class="stat-number" id="sharesCount">0</div>
+                        <div class="stat-label">Shares</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Quote Share Modal -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Share Quote</h3>
+                <button class="modal-close" onclick="closeShareModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="share-preview">
+                    <p class="share-quote-text" id="shareQuoteText"></p>
+                    <p class="share-quote-author" id="shareQuoteAuthor"></p>
+                </div>
+                <div class="share-options">
+                    <button class="share-btn twitter" onclick="shareToTwitter()">
+                        <i class="fab fa-twitter"></i>
+                        Twitter
+                    </button>
+                    <button class="share-btn facebook" onclick="shareToFacebook()">
+                        <i class="fab fa-facebook"></i>
+                        Facebook
+                    </button>
+                    <button class="share-btn linkedin" onclick="shareToLinkedIn()">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </button>
+                    <button class="share-btn copy" onclick="copyQuoteLink()">
+                        <i class="fas fa-link"></i>
+                        Copy Link
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Animation -->
+    <div id="loadingQuote" class="loading-animation" style="display: none;">
+        <div class="spinner"></div>
+        <p>Generating new quote...</p>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <script src="../scripts/quotes.js"></script>
+</body>
+</html>

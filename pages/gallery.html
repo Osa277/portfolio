@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery - Samuel's Portfolio</title>
+    <link rel="stylesheet" href="styles/gallery.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>📸 NATURE GALLERY</h2>
+            </div>
+            <div class="nav-links">
+                <a href="../link.html" class="nav-link">🔗 Links</a>
+                <a href="../index.html" class="nav-link">🏠 Home</a>
+                <a href="about.html" class="nav-link">👨‍💻 About</a>
+                <a href="contact.html" class="nav-link">📞 Contact</a>
+            </div>
+            <div class="nav-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Gallery Header -->
+    <section class="gallery-header">
+        <div class="container">
+            <h1>Nature Photography Collection</h1>
+            <p>Capturing the raw beauty and diverse landscapes of our natural world</p>
+            <div class="gallery-stats">
+                <div class="stat">
+                    <span class="stat-number">18</span>
+                    <span class="stat-label">Curated Photos</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Ecosystems</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Locations</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Controls -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="all" onclick="filterGallery('all')">All Nature</button>
+                <button class="filter-btn" data-filter="mountains" onclick="filterGallery('mountains')">Mountains</button>
+                <button class="filter-btn" data-filter="water" onclick="filterGallery('water')">Water</button>
+                <button class="filter-btn" data-filter="forests" onclick="filterGallery('forests')">Forests</button>
+                <button class="filter-btn" data-filter="sky" onclick="filterGallery('sky')">Sky & Space</button>
+                <button class="filter-btn" data-filter="seasonal" onclick="filterGallery('seasonal')">Seasons</button>
+                <button class="filter-btn" data-filter="desert" onclick="filterGallery('desert')">Desert</button>
+            </div>
+            <div class="view-controls">
+                <button class="view-btn" onclick="changeView('grid')" title="Grid View">
+                    <i class="fas fa-th"></i>
+                </button>
+                <button class="view-btn" onclick="changeView('list')" title="List View">
+                    <i class="fas fa-list"></i>
+                </button>
+                <button class="view-btn" onclick="toggleFullscreen()" title="Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Grid -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Nature Photos -->
+                <div class="gallery-item" data-category="mountains">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Mountain Landscape">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Mountain Landscape</h3>
+                            <p>Majestic peaks at sunrise</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(0)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(0)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(0)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="forests">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Forest Path">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Forest Trail</h3>
+                            <p>Peaceful woodland path</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(1)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(1)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(1)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="forests">
+                    <img src="https://images.unsplash.com/photo-1574687678408-768b0c7bbfc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Rainforest Canopy">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Rainforest Canopy</h3>
+                            <p>Lush green biodiversity from above</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(2)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(2)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(2)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="water">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Misty Lake">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Misty Lake</h3>
+                            <p>Morning fog over crystal waters</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(3)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(3)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(3)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="water">
+                    <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Ocean Waves">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Ocean Waves</h3>
+                            <p>Powerful waves crashing on shore</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(4)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(4)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(4)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="water">
+                    <img src="https://images.unsplash.com/photo-1501436513145-30f24e19fcc4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Sunset Beach">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Sunset Paradise</h3>
+                            <p>Golden hour at the beach</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(5)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(5)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(5)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="desert">
+                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Desert Landscape">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Desert Dunes</h3>
+                            <p>Golden sand formations at dawn</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(6)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(6)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(6)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="sky">
+                    <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Northern Lights">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Aurora Borealis</h3>
+                            <p>Dancing lights in the night sky</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(7)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(7)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(7)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="water">
+                    <img src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Waterfall">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Hidden Waterfall</h3>
+                            <p>Cascading waters in the tropical jungle</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(8)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(8)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(8)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="seasonal">
+                    <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Flower Field">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Wildflower Meadow</h3>
+                            <p>Vibrant spring blooms in full color</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(9)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(9)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(9)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="mountains">
+                    <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Snow Mountains">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Snow-Capped Peaks</h3>
+                            <p>Winter mountain majesty</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(10)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(10)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(10)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="sky">
+                    <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Starry Night">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Starry Night Sky</h3>
+                            <p>Milky Way over the landscape</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(11)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(11)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(11)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="seasonal">
+                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Autumn Forest">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Autumn Colors</h3>
+                            <p>Fall foliage in full glory</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(12)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(12)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(12)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Nature Photos -->
+                <div class="gallery-item" data-category="mountains">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Glacier Peak">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Glacier Peak</h3>
+                            <p>Ancient ice formations in pristine wilderness</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(13)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(13)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(13)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="water">
+                    <img src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Tropical Paradise">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Tropical Paradise</h3>
+                            <p>Crystal clear waters and palm trees</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(14)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(14)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(14)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="desert">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Canyon Vista">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Canyon Vista</h3>
+                            <p>Dramatic rock formations and desert landscape</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(15)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(15)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(15)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="desert">
+                    <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Volcanic Landscape">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Volcanic Landscape</h3>
+                            <p>Raw power of Earth's geological forces</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(16)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(16)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(16)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="forests">
+                    <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Misty Forest">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>Misty Forest</h3>
+                            <p>Ethereal morning mist through ancient trees</p>
+                        </div>
+                        <div class="gallery-actions">
+                            <button onclick="openLightbox(17)" class="view-btn" title="View Image">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="downloadImage(17)" class="download-btn" title="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button onclick="shareImage(17)" class="share-btn" title="Share">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="lightbox-modal">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="lightbox-prev" onclick="previousImage()">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-next" onclick="nextImage()">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-info">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDescription"></p>
+                <div class="lightbox-actions">
+                    <button onclick="downloadCurrentImage()" class="download-btn">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </button>
+                    <button onclick="shareCurrentImage()" class="share-btn">
+                        <i class="fas fa-share"></i>
+                        Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading images...</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gallery-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Nature Gallery</h4>
+                    <p>Capturing the beauty of our natural world through stunning photography.</p>
+                    <div class="social-links">
+                        <a href="#" onclick="shareOn('facebook')" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" onclick="shareOn('instagram')" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" onclick="shareOn('twitter')" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" onclick="shareOn('pinterest')" title="Pinterest"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Gallery Stats</h4>
+                    <div class="footer-stats">
+                        <span class="stat-item"><i class="fas fa-images"></i> 18 Photos</span>
+                        <span class="stat-item"><i class="fas fa-eye"></i> <span id="totalViews">2,847</span> Views</span>
+                        <span class="stat-item"><i class="fas fa-download"></i> <span id="totalDownloads">456</span> Downloads</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Settings</h4>
+                    <div class="footer-controls">
+                        <button onclick="toggleAutoplay()" class="control-btn">
+                            <i class="fas fa-play"></i> Slideshow
+                        </button>
+                        <button onclick="toggleTheme()" class="control-btn">
+                            <i class="fas fa-moon"></i> Dark Mode
+                        </button>
+                        <button onclick="resetGallery()" class="control-btn">
+                            <i class="fas fa-refresh"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Samuel's Nature Gallery. All rights reserved. | <a href="#" onclick="showLicenseInfo()">Usage License</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/gallery.js"></script>
+</body>
+</html>

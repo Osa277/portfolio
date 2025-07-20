@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Request - Samuel's Portfolio</title>
+    <link rel="stylesheet" href="styles/request.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>REQUEST FORM</h2>
+            </div>
+            <div class="nav-links">
+                <a href="../link.html">🔗 Back to Links</a>
+                <a href="../index.html">🏠 Home</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="request-main">
+        <div class="container">
+            <div class="request-header">
+                <h1>Make a Request</h1>
+                <p>Tell me about your project and let's bring your vision to life!</p>
+            </div>
+
+            <div class="request-grid">
+                <!-- Request Form -->
+                <div class="request-form-section">
+                    <form class="request-form" id="requestForm">
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i> Contact Information</h3>
+                            <div class="form-group">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" name="fullName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-project-diagram"></i> Project Details</h3>
+                            <div class="form-group">
+                                <label for="projectType">Project Type *</label>
+                                <select id="projectType" name="projectType" required>
+                                    <option value="">Select Project Type</option>
+                                    <option value="website">Simple Website</option>
+                                    <option value="portfolio">Portfolio Website</option>
+                                    <option value="landing-page">Landing Page</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="projectDescription">Project Description *</label>
+                                <textarea id="projectDescription" name="projectDescription" rows="4" required placeholder="Please describe your project..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-calendar-alt"></i> Timeline & Budget</h3>
+                            <div class="form-group">
+                                <label for="timeline">Timeline</label>
+                                <select id="timeline" name="timeline">
+                                    <option value="">Select Timeline</option>
+                                    <option value="1-2-weeks">1-2 weeks</option>
+                                    <option value="3-4-weeks">3-4 weeks</option>
+                                    <option value="flexible">Flexible</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="budget">Budget Range</label>
+                                <select id="budget" name="budget">
+                                    <option value="">Select Budget</option>
+                                    <option value="under-500">Under $500</option>
+                                    <option value="500-1k">$500 - $1,000</option>
+                                    <option value="discuss">Let's Discuss</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-paper-plane"></i>
+                                Submit Request
+                            </button>
+                            <button type="reset" class="btn-reset">
+                                <i class="fas fa-undo"></i>
+                                Reset Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Request Info Sidebar -->
+                <div class="request-info">
+                    <div class="info-card">
+                        <h3><i class="fas fa-rocket"></i> What Happens Next?</h3>
+                        <div class="process-steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Review</h4>
+                                    <p>I'll review your request within 24 hours</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Discussion</h4>
+                                    <p>We'll discuss the details</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Start Work</h4>
+                                    <p>Begin your project</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3><i class="fas fa-star"></i> Why Choose Me?</h3>
+                        <ul class="benefits-list">
+                            <li><i class="fas fa-check"></i> Learning & Growing</li>
+                            <li><i class="fas fa-check"></i> Passionate Developer</li>
+                            <li><i class="fas fa-check"></i> Quick Communication</li>
+                            <li><i class="fas fa-check"></i> Clean Code</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <h3><i class="fas fa-phone"></i> Need to Talk?</h3>
+                        <p>Prefer a direct conversation? I'm here to help!</p>
+                        <div class="contact-options">
+                            <a href="tel:+1234567890" class="contact-btn">
+                                <i class="fas fa-phone"></i>
+                                Call Me
+                            </a>
+                            <a href="mailto:samuel@portfolio.com" class="contact-btn">
+                                <i class="fas fa-envelope"></i>
+                                Email Me
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-animation">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Request Submitted Successfully!</h2>
+            <p>Thank you for your request. I'll get back to you within 24 hours with a detailed response.</p>
+            <div class="modal-actions">
+                <button class="btn-primary" onclick="closeModal()">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/request.js"></script>
+</body>
+</html>

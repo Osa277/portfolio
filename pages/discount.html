@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discount Store - Samuel's Portfolio</title>
+    <link rel="stylesheet" href="styles/discount.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Professional Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>DISCOUNT STORE</h2>
+            </div>
+            <div class="nav-links">
+                <a href="../link.html"><i class="fas fa-link"></i> Back to Links</a>
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="checkout.html"><i class="fas fa-shopping-cart"></i> Checkout</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="discount-hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="discount-badge">
+                    <span class="discount-percent">UP TO 70% OFF</span>
+                </div>
+                <h1>MEGA DISCOUNT SALE</h1>
+                <p>Limited time offers on premium products. Don't miss out on these incredible deals!</p>
+                <div class="countdown-timer">
+                    <h3>Sale Ends In:</h3>
+                    <div class="timer" id="countdownTimer">
+                        <div class="time-unit">
+                            <span class="time-value" id="days">03</span>
+                            <span class="time-label">Days</span>
+                        </div>
+                        <div class="time-unit">
+                            <span class="time-value" id="hours">14</span>
+                            <span class="time-label">Hours</span>
+                        </div>
+                        <div class="time-unit">
+                            <span class="time-value" id="minutes">25</span>
+                            <span class="time-label">Minutes</span>
+                        </div>
+                        <div class="time-unit">
+                            <span class="time-value" id="seconds">42</span>
+                            <span class="time-label">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label for="discountFilter">Discount Range:</label>
+                    <select id="discountFilter">
+                        <option value="all">All Discounts</option>
+                        <option value="10-25">10% - 25% Off</option>
+                        <option value="25-50">25% - 50% Off</option>
+                        <option value="50-70">50% - 70% Off</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="categoryFilter">Category:</label>
+                    <select id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="home">Home & Living</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sortFilter">Sort By:</label>
+                    <select id="sortFilter">
+                        <option value="discount">Highest Discount</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name A-Z</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discount Products Grid -->
+    <section class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Hot Deals & Discounts</h2>
+                <div class="results-count">
+                    <span id="resultsCount">24 products found</span>
+                </div>
+            </div>
+            
+            <div class="products-grid" id="productsGrid">
+                <!-- Product 1 -->
+                <div class="product-card" data-category="clothing" data-discount="60">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x300?text=Premium+Jacket" alt="Premium Jacket">
+                        <div class="discount-badge">60% OFF</div>
+                        <div class="product-overlay">
+                            <button class="btn-quick-view" onclick="quickView(1)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-wishlist" onclick="toggleWishlist(1)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Premium Winter Jacket</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(127 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="original-price">$299.99</span>
+                            <span class="sale-price">$119.99</span>
+                            <span class="savings">Save $180.00</span>
+                        </div>
+                        <button class="btn-add-to-cart" onclick="addToCart(1)">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card" data-category="electronics" data-discount="45">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x300?text=Wireless+Headphones" alt="Wireless Headphones">
+                        <div class="discount-badge">45% OFF</div>
+                        <div class="product-overlay">
+                            <button class="btn-quick-view" onclick="quickView(2)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-wishlist" onclick="toggleWishlist(2)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Wireless Bluetooth Headphones</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(203 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="original-price">$179.99</span>
+                            <span class="sale-price">$98.99</span>
+                            <span class="savings">Save $81.00</span>
+                        </div>
+                        <button class="btn-add-to-cart" onclick="addToCart(2)">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card" data-category="accessories" data-discount="70">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x300?text=Luxury+Watch" alt="Luxury Watch">
+                        <div class="discount-badge">70% OFF</div>
+                        <div class="product-overlay">
+                            <button class="btn-quick-view" onclick="quickView(3)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-wishlist" onclick="toggleWishlist(3)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Luxury Sport Watch</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(89 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="original-price">$599.99</span>
+                            <span class="sale-price">$179.99</span>
+                            <span class="savings">Save $420.00</span>
+                        </div>
+                        <button class="btn-add-to-cart" onclick="addToCart(3)">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card" data-category="home" data-discount="55">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x300?text=Smart+Home+Device" alt="Smart Home Device">
+                        <div class="discount-badge">55% OFF</div>
+                        <div class="product-overlay">
+                            <button class="btn-quick-view" onclick="quickView(4)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-wishlist" onclick="toggleWishlist(4)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Smart Home Assistant</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(156 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="original-price">$199.99</span>
+                            <span class="sale-price">$89.99</span>
+                            <span class="savings">Save $110.00</span>
+                        </div>
+                        <button class="btn-add-to-cart" onclick="addToCart(4)">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card" data-category="clothing" data-discount="40">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x300?text=Designer+Sneakers" alt="Designer Sneakers">
+                        <div class="discount-badge">40% OFF</div>
+                        <div class="product-overlay">
+                            <button class="btn-quick-view" onclick="quickView(5)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-wishlist" onclick="toggleWishlist(5)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Designer Sneakers</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(94 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="original-price">$249.99</span>
+                            <span class="sale-price">$149.99</span>
+                            <span class="savings">Save $100.00</span>
+                        </div>
+                        <button class="btn-add-to-cart" onclick="addToCart(5)">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card" data-category="electronics" data-discount="50">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x300?text=Tablet+Pro" alt="Tablet Pro">
+                        <div class="discount-badge">50% OFF</div>
+                        <div class="product-overlay">
+                            <button class="btn-quick-view" onclick="quickView(6)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-wishlist" onclick="toggleWishlist(6)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Professional Tablet Pro</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(178 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="original-price">$799.99</span>
+                            <span class="sale-price">$399.99</span>
+                            <span class="savings">Save $400.00</span>
+                        </div>
+                        <button class="btn-add-to-cart" onclick="addToCart(6)">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Never Miss a Deal!</h2>
+                <p>Subscribe to our newsletter and be the first to know about exclusive discounts and flash sales.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit">
+                        <i class="fas fa-bell"></i>
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick View Modal -->
+    <div id="quickViewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Quick View</h3>
+                <button class="modal-close" onclick="closeQuickView()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="quickViewContent">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="cart-close" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-content" id="cartContent">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total: $<span id="cartTotal">0.00</span></span>
+            </div>
+            <button class="btn-checkout" onclick="goToCheckout()">
+                <i class="fas fa-credit-card"></i>
+                Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Cart Toggle Button -->
+    <button class="cart-toggle" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+    </button>
+
+    <script src="../scripts/discount.js"></script>
+</body>
+</html>
