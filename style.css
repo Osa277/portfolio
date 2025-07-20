@@ -1,0 +1,265 @@
+body{
+    background-color: rgb(234, 244, 246);
+    /* padding: 10px; */
+    /* margin: 10px; */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    
+
+}
+
+.Sam{
+    text-align: center;
+    display: flex;
+    margin: auto;
+    width: 80%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    
+}
+
+.Sam1{
+    text-align: center;
+    display: flex;
+    margin: auto;
+    width: 80%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    
+}
+.nav{
+    font-style: italic;
+    font-size: xx-large;
+    text-align: center;
+    height: 58px;
+    width: 100%;
+    position: fixed;
+background-color: #b2b2ed;}
+
+.Personal{
+    font-family: fantasy;
+    font-style: oblique;
+    font-size: x-large;
+    padding-right: 79%;
+   height: 30px;
+   /* width: 100%; */
+   text-transform: uppercase;
+}
+
+.nav-bar{
+    margin-top: auto;
+    background-color: #b2b2ed;
+    /* box-shadow: 0.9px 0.9px 12px 1px rgba(229, 190, 153, 0.5); */
+    height: 96px;
+    padding-top: 18px;
+    box-sizing: border-box;
+    position: fixed;
+    z-index: 9;
+    display: flex;
+    width: 100%;
+}
+.nav-bar li{
+    font-style:italic;
+    font-size: xx-large;
+    display: inline-block;
+    margin-right: 30px;
+    /* color: #f7efef; */
+       
+}
+
+
+li.e{
+    background-color: rgb(145, 145, 248);
+    width: 85px;
+    height: 35px;
+    color: rgb(228, 236, 236);
+    border-radius: 50;
+    box-sizing: border-box;
+    padding-left: auto;
+    padding-top: 2px;
+}
+
+.navigation{
+    /* display: flex; */
+    justify-content: space-between;
+    /* padding: 1%; */
+    padding-top: 1%;
+    padding-left: 99%;
+    font-size: small;
+    
+   
+}
+
+
+.e+li{
+    margin-right: 700px;
+
+}
+.list{
+    padding-left: 192px;
+}
+.list li:hover{
+background-color: rgb(124, 124, 222);
+}
+
+.hero-container{
+    box-shadow: #dbc0fa;
+    /* text-shadow: #5715a3; */
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 200px;
+    align-items: center;
+    background-color: rgb(213, 235, 241);
+    box-shadow: 5px 300px 45px rgb(198, 198, 230);
+}
+
+
+.hero-container1{
+    box-shadow: #d3b9f1;
+    text-shadow: #e4d4f5;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 0px;
+    padding-top: 10px;
+    align-items: center;
+    background-color: rgb(225, 211, 241);
+    box-shadow: 5px 3px 45px rgb(198, 198, 230);
+}
+.more{
+    border-radius: 20px;
+    background-color: aqua;
+    width: 210px;
+    height: 50px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bolder;
+    padding-top: 3px;
+    box-sizing: border-box;
+
+}
+.project{
+    width: 40%;
+    /* box-shadow: 10px 300px 45px rgb(198, 198, 230); */
+
+}
+.project h1{
+    font-size: 40px;
+    text-transform: uppercase;
+    /* box-shadow: 10px 300px 45px rgb(198, 198, 230); */
+
+}
+
+.services{
+text-align: center;
+padding-top: 40px;
+width: 400px;
+margin: auto;
+}
+
+.my{
+    text-transform: uppercase;
+}
+
+.sam{
+    width: 300px;
+}
+
+.sam p + p{
+    font-size: 14px;
+}
+
+
+.sam1{
+    width: 300px;
+}
+
+.sam1 p + p{
+    font-size: 14px;
+}
+
+.logo:hover{
+    color: #b2b2ed;
+}
+
+.olami{
+    background-color:#b2b2ed;
+    color: #ebebeb;
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem;
+    text-transform: uppercase;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+.ola{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    text-align: center;
+}
+.A1{
+  font-size: 12px;
+
+}
+
+.ola div p{
+    margin: 0;
+}
+
+.fathers{
+    text-transform: capitalize;
+    text-align: center;
+    padding-top: 32px;
+}
+
+footer {
+    background-color: #b2b2ed;
+    color: rgb(90, 15, 150);
+    text-align: center;
+    padding: 20px;
+    position:relative;
+    bottom: 0;
+    width: 96.8%;
+}
+footer a {
+    color: #570ff1;
+    text-decoration: none;
+    margin: 0 10px;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+.email-input {
+    margin: 10px 0;
+}
+.email-input input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 200px;
+    max-width: 90%;
+}
+.email-input button {
+    padding: 10px;
+    border: none;
+    background-color: #6329a9;
+    color: #b2b2ed;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.email-input button:hover {
+    background-color: #b2b2ed;
+}
+@media (max-width: 100px) {
+    footer {
+        font-size: 14px;
+    }
+    footer a {
+        display: block;
+        margin: 5px 0;
+    }
+
