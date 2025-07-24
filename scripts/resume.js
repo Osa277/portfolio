@@ -14,12 +14,22 @@ function initializeResumePage() {
 
 // Mobile Menu Functionality
 function initializeMobileMenu() {
+    console.log('Initializing mobile menu...');
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
+    
+    console.log('Mobile menu button found:', !!mobileMenuBtn);
+    console.log('Nav links found:', !!navLinks);
 
     if (mobileMenuBtn && navLinks) {
-        mobileMenuBtn.addEventListener('click', function() {
+        console.log('Both elements found, adding event listeners');
+        
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Mobile menu button clicked');
+            
             navLinks.classList.toggle('active');
+            console.log('Menu is now:', navLinks.classList.contains('active') ? 'open' : 'closed');
             
             // Animate hamburger menu icon
             const icon = this.querySelector('i');
@@ -34,8 +44,11 @@ function initializeMobileMenu() {
 
         // Close menu when clicking on a link
         const navLinkItems = navLinks.querySelectorAll('a');
+        console.log('Found nav link items:', navLinkItems.length);
+        
         navLinkItems.forEach(link => {
             link.addEventListener('click', () => {
+                console.log('Nav link clicked, closing menu');
                 navLinks.classList.remove('active');
                 const icon = mobileMenuBtn.querySelector('i');
                 icon.className = 'fas fa-bars';
@@ -52,6 +65,10 @@ function initializeMobileMenu() {
                 mobileMenuBtn.setAttribute('aria-label', 'Open menu');
             }
         });
+    } else {
+        console.log('Mobile menu elements not found!');
+        if (!mobileMenuBtn) console.log('Missing: .mobile-menu-btn');
+        if (!navLinks) console.log('Missing: .nav-links');
     }
 }
 
