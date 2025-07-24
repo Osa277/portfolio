@@ -21,8 +21,15 @@ function initializeMobileMenu() {
         mobileMenuBtn.addEventListener('click', function() {
             navLinks.classList.toggle('active');
             
-            // Animate hamburger menu
-            this.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+            // Animate hamburger menu icon
+            const icon = this.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+                this.setAttribute('aria-label', 'Close menu');
+            } else {
+                icon.className = 'fas fa-bars';
+                this.setAttribute('aria-label', 'Open menu');
+            }
         });
 
         // Close menu when clicking on a link
@@ -30,7 +37,9 @@ function initializeMobileMenu() {
         navLinkItems.forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
-                mobileMenuBtn.innerHTML = '☰';
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.className = 'fas fa-bars';
+                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
             });
         });
 
@@ -38,7 +47,9 @@ function initializeMobileMenu() {
         document.addEventListener('click', function(e) {
             if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
                 navLinks.classList.remove('active');
-                mobileMenuBtn.innerHTML = '☰';
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.className = 'fas fa-bars';
+                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
             }
         });
     }
