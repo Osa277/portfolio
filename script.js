@@ -54,6 +54,173 @@ if (hamburger && navMenu) {
     });
 }
 
+// Mobile Bottom Navigation
+function initMobileNavigation() {
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+    const sections = document.querySelectorAll('section[id]');
+    
+    // Update active nav item based on scroll position
+    function updateActiveNavItem() {
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (window.scrollY >= (sectionTop - 200)) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        mobileNavItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href') === `#${current}`) {
+                item.classList.add('active');
+            }
+        });
+    }
+    
+    // Smooth scroll for mobile nav items
+    mobileNavItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Remove active class from all items
+            mobileNavItems.forEach(navItem => navItem.classList.remove('active'));
+            
+            // Add active class to clicked item
+            item.classList.add('active');
+            
+            // Smooth scroll to target section
+            const targetId = item.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                const headerHeight = 80;
+                const targetPosition = targetSection.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Update active item on scroll
+    window.addEventListener('scroll', updateActiveNavItem);
+    
+    // Initial call
+    updateActiveNavItem();
+}
+
+// Mobile form handling
+function initMobileForms() {
+    const mobileContactForm = document.getElementById('mobileContactForm');
+    
+    if (mobileContactForm) {
+        mobileContactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(mobileContactForm);
+            const data = Object.fromEntries(formData);
+            
+            // Show loading state
+            const submitBtn = mobileContactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission (replace with actual submission logic)
+            setTimeout(() => {
+                alert('Thank you for your message! I\'ll get back to you soon.');
+                mobileContactForm.reset();
+                
+                // Restore button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+    }
+}
+
+// Touch gesture enhancements for mobile
+function initTouchEnhancements() {
+    // Add touch feedback to mobile buttons
+    const mobileButtons = document.querySelectorAll('.mobile-btn, .mobile-nav-item, .mobile-portfolio-link');
+    
+    mobileButtons.forEach(button => {
+        button.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.95)';
+        });
+        
+        button.addEventListener('touchend', function() {
+            this.style.transform = 'scale(1)';
+        });
+    });
+    
+    // Enhanced touch scrolling for mobile portfolio
+    const mobilePortfolio = document.querySelector('.mobile-portfolio');
+    if (mobilePortfolio) {
+        let isScrolling = false;
+        
+        mobilePortfolio.addEventListener('touchstart', () => {
+            isScrolling = true;
+        });
+        
+        mobilePortfolio.addEventListener('touchend', () => {
+            setTimeout(() => {
+                isScrolling = false;
+            }, 100);
+        });
+    }
+}
+
+// Device detection and responsive adjustments
+function detectDevice() {
+    const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+    
+    // Add device classes to body
+    document.body.classList.remove('mobile-device', 'tablet-device', 'desktop-device');
+    
+    if (isMobile) {
+        document.body.classList.add('mobile-device');
+    } else if (isTablet) {
+        document.body.classList.add('tablet-device');
+    } else {
+        document.body.classList.add('desktop-device');
+    }
+    
+    // Adjust viewport height for mobile browsers
+    if (isMobile) {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+}
+
+// Initialize responsive features
+function initResponsiveFeatures() {
+    detectDevice();
+    
+    // Re-detect on resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            detectDevice();
+        }, 250);
+    });
+    
+    // Initialize mobile-specific features only on mobile
+    if (window.innerWidth <= 768) {
+        initMobileNavigation();
+        initMobileForms();
+        initTouchEnhancements();
+    }
+}
+
 // Active navigation highlighting
 function highlightActiveSection() {
     const sections = document.querySelectorAll('section[id]');
@@ -543,3 +710,8 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
+// Initialize all responsive features when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initResponsiveFeatures();
+});
