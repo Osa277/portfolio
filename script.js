@@ -19,6 +19,124 @@ const performanceMetrics = {
     }
 };
 
+// Enhanced Button Interactions
+function enhanceButtonInteractions() {
+    try {
+        // Add ripple effect to buttons
+        const buttons = $$('.btn, .mobile-btn, .mobile-nav-item');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                    z-index: 10;
+                `;
+                
+                // Add ripple animation keyframes if not already added
+                if (!document.querySelector('#ripple-styles')) {
+                    const style = document.createElement('style');
+                    style.id = 'ripple-styles';
+                    style.textContent = `
+                        @keyframes ripple {
+                            to {
+                                transform: scale(2);
+                                opacity: 0;
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    if (ripple.parentNode) {
+                        ripple.parentNode.removeChild(ripple);
+                    }
+                }, 600);
+            });
+            
+            // Add touch feedback
+            button.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            
+            button.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+            });
+        });
+        
+        performanceMetrics.markEvent('Button interactions enhanced');
+    } catch (error) {
+        logError(error, 'Button Interactions');
+    }
+}
+
+// Enhanced Navigation Active States
+function enhanceNavigationStates() {
+    try {
+        const navLinks = $$('.nav-link, .mobile-nav-item');
+        const sections = $$('section[id]');
+        
+        // Update active states on scroll
+        const updateActiveStates = () => {
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+                const id = section.getAttribute('id');
+                
+                if (scrollPos >= top && scrollPos <= bottom) {
+                    // Remove active class from all links
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    
+                    // Add active class to current section links
+                    const currentLinks = $$(`[href="#${id}"], [href*="${id}"]`);
+                    currentLinks.forEach(link => link.classList.add('active'));
+                }
+            });
+        };
+        
+        // Throttled scroll listener
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) return;
+            scrollTimeout = setTimeout(() => {
+                updateActiveStates();
+                scrollTimeout = null;
+            }, 10);
+        });
+        
+        // Initial update
+        updateActiveStates();
+        
+        performanceMetrics.markEvent('Navigation states enhanced');
+    } catch (error) {
+        logError(error, 'Navigation States');
+    }
+}
+
 // Enhanced Preloader with Error Handling
 window.addEventListener('load', () => {
     try {
@@ -31,8 +149,13 @@ window.addEventListener('load', () => {
                 performanceMetrics.markEvent('Preloader Hidden');
             }, 500);
         }
+        
+        // Initialize enhancements after page load
+        enhanceButtonInteractions();
+        enhanceNavigationStates();
+        
     } catch (error) {
-        logError(error, 'Preloader');
+        logError(error, 'Page Load');
     }
 });
 
