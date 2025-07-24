@@ -153,6 +153,8 @@ window.addEventListener('load', () => {
         // Initialize enhancements after page load
         enhanceButtonInteractions();
         enhanceNavigationStates();
+        initializeSmoothScrolling();
+        initMobileNavigation();
         
     } catch (error) {
         logError(error, 'Page Load');
@@ -269,56 +271,94 @@ const initializeMobileNavigation = () => {
 };
 
 // Initialize mobile navigation
-initializeMobileNavigation();
+// initializeMobileNavigation(); // Moved to page load event
 
 // Mobile Bottom Navigation
 function initMobileNavigation() {
     const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+    const mobileButtons = document.querySelectorAll('.mobile-btn');
     const sections = document.querySelectorAll('section[id]');
     
     // Update active nav item based on scroll position
     function updateActiveNavItem() {
         let current = '';
+        const isMobile = window.innerWidth <= 768;
         
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
+            const sectionId = section.getAttribute('id');
             
-            if (window.scrollY >= (sectionTop - 200)) {
-                current = section.getAttribute('id');
+            // Skip hidden sections
+            const isVisible = window.getComputedStyle(section).display !== 'none';
+            
+            if (isVisible && window.scrollY >= (sectionTop - 200)) {
+                current = sectionId;
             }
         });
         
         mobileNavItems.forEach(item => {
             item.classList.remove('active');
-            if (item.getAttribute('href') === `#${current}`) {
-                item.classList.add('active');
+            const itemHref = item.getAttribute('href');
+            
+            if (itemHref) {
+                const itemTarget = itemHref.substring(1); // Remove #
+                
+                // Map mobile sections back to main navigation
+                const mobileToMainMapping = {
+                    'mobile-services': 'services',
+                    'mobile-projects': 'projects',
+                    'mobile-contact': 'contact'
+                };
+                
+                const mappedCurrent = mobileToMainMapping[current] || current;
+                
+                if (itemTarget === mappedCurrent || 
+                    (current && itemHref === `#${current}`)) {
+                    item.classList.add('active');
+                }
             }
         });
     }
     
-    // Smooth scroll for mobile nav items
+    // Handle mobile nav items (both internal sections and external pages)
     mobileNavItems.forEach(item => {
         item.addEventListener('click', (e) => {
-            e.preventDefault();
+            const href = item.getAttribute('href');
             
-            // Remove active class from all items
-            mobileNavItems.forEach(navItem => navItem.classList.remove('active'));
+            // Check if it's an external link (contains .html)
+            if (href && href.includes('.html')) {
+                // Let the browser handle external navigation normally
+                return;
+            }
             
-            // Add active class to clicked item
-            item.classList.add('active');
+            // Handle internal section navigation - let the smooth scrolling handle it
+            // Just update active state immediately for better UX
+            if (href && href.startsWith('#')) {
+                mobileNavItems.forEach(navItem => navItem.classList.remove('active'));
+                item.classList.add('active');
+            }
+        });
+    });
+    
+    // Handle mobile hero buttons (About Me, View Work, Get In Touch)
+    mobileButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const href = button.getAttribute('href');
             
-            // Smooth scroll to target section
-            const targetId = item.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
+            // Check if it's an external link
+            if (href && href.includes('.html')) {
+                return; // Let browser handle external navigation
+            }
             
-            if (targetSection) {
-                const headerHeight = 80;
-                const targetPosition = targetSection.offsetTop - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
+            // Handle internal section navigation - let smooth scrolling handle the rest
+            if (href && href.startsWith('#')) {
+                // Update mobile nav active state immediately
+                mobileNavItems.forEach(navItem => {
+                    navItem.classList.remove('active');
+                    if (navItem.getAttribute('href') === href) {
+                        navItem.classList.add('active');
+                    }
                 });
             }
         });
@@ -459,6 +499,92 @@ function highlightActiveSection() {
             link.classList.add('active');
         }
     });
+}
+
+// Enhanced Smooth Scrolling for all navigation links
+function initializeSmoothScrolling() {
+    try {
+        // Get all navigation links (desktop and mobile)
+        const allNavLinks = $$('a[href^="#"], .nav-link[href^="#"], .mobile-nav-item[href^="#"], .mobile-btn[href^="#"], .btn[href^="#"]');
+        
+        allNavLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // Only handle internal links that start with #
+                if (href && href.startsWith('#') && href !== '#') {
+                    e.preventDefault();
+                    
+                    let targetId = href.substring(1);
+                    let targetElement = document.getElementById(targetId);
+                    
+                    // If target not found, try mobile version
+                    if (!targetElement && window.innerWidth <= 768) {
+                        const mobileTargetId = `mobile-${targetId}`;
+                        targetElement = document.getElementById(mobileTargetId);
+                        if (targetElement) {
+                            targetId = mobileTargetId;
+                        }
+                    }
+                    
+                    // If still not found, try desktop version when on mobile
+                    if (!targetElement && window.innerWidth <= 768) {
+                        // For mobile, map certain links to existing sections
+                        const mobileMapping = {
+                            'services': 'mobile-services',
+                            'projects': 'mobile-projects', 
+                            'contact': 'mobile-contact',
+                            'home': 'about' // On mobile, home button goes to about since mobile hero is always visible
+                        };
+                        
+                        if (mobileMapping[targetId]) {
+                            targetElement = document.getElementById(mobileMapping[targetId]);
+                            targetId = mobileMapping[targetId];
+                        }
+                    }
+                    
+                    if (targetElement) {
+                        // Calculate header offset
+                        const headerHeight = 80;
+                        const elementPosition = targetElement.offsetTop;
+                        const offsetPosition = elementPosition - headerHeight;
+                        
+                        // Smooth scroll to target
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active states for mobile navigation
+                        const mobileNavItems = $$('.mobile-nav-item');
+                        mobileNavItems.forEach(item => {
+                            item.classList.remove('active');
+                            // Match original href for active state
+                            if (item.getAttribute('href') === href) {
+                                item.classList.add('active');
+                            }
+                        });
+                        
+                        // Close mobile menu if open
+                        const hamburger = $('.hamburger');
+                        const navMenu = $('.nav-menu');
+                        if (hamburger && navMenu) {
+                            hamburger.classList.remove('active');
+                            navMenu.classList.remove('active');
+                        }
+                        
+                        performanceMetrics.markEvent(`Smooth scroll to ${targetId}`);
+                    } else {
+                        console.warn(`Target element not found: ${targetId}`);
+                    }
+                }
+            });
+        });
+        
+        performanceMetrics.markEvent('Smooth scrolling initialized');
+    } catch (error) {
+        logError(error, 'Smooth Scrolling Initialization');
+    }
 }
 
 // Performance optimization: Debounce function
