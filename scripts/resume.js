@@ -4,72 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeResumePage() {
-    initializeMobileMenu();
+    console.log('Resume page initialized with simple navigation');
     initializePDFControls();
     initializeSmoothScrolling();
     initializeAnimations();
     initializeProjectInteractions();
     initializeContactLinks();
-}
-
-// Mobile Menu Functionality
-function initializeMobileMenu() {
-    console.log('Initializing mobile menu...');
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    
-    console.log('Mobile menu button found:', !!mobileMenuBtn);
-    console.log('Nav links found:', !!navLinks);
-
-    if (mobileMenuBtn && navLinks) {
-        console.log('Both elements found, adding event listeners');
-        
-        mobileMenuBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('Mobile menu button clicked');
-            
-            navLinks.classList.toggle('active');
-            console.log('Menu is now:', navLinks.classList.contains('active') ? 'open' : 'closed');
-            
-            // Animate hamburger menu icon
-            const icon = this.querySelector('i');
-            if (navLinks.classList.contains('active')) {
-                icon.className = 'fas fa-times';
-                this.setAttribute('aria-label', 'Close menu');
-            } else {
-                icon.className = 'fas fa-bars';
-                this.setAttribute('aria-label', 'Open menu');
-            }
-        });
-
-        // Close menu when clicking on a link
-        const navLinkItems = navLinks.querySelectorAll('a');
-        console.log('Found nav link items:', navLinkItems.length);
-        
-        navLinkItems.forEach(link => {
-            link.addEventListener('click', () => {
-                console.log('Nav link clicked, closing menu');
-                navLinks.classList.remove('active');
-                const icon = mobileMenuBtn.querySelector('i');
-                icon.className = 'fas fa-bars';
-                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
-            });
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                navLinks.classList.remove('active');
-                const icon = mobileMenuBtn.querySelector('i');
-                icon.className = 'fas fa-bars';
-                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
-            }
-        });
-    } else {
-        console.log('Mobile menu elements not found!');
-        if (!mobileMenuBtn) console.log('Missing: .mobile-menu-btn');
-        if (!navLinks) console.log('Missing: .nav-links');
-    }
 }
 
 // PDF Controls
@@ -515,20 +455,6 @@ style.textContent = `
     }
     
     @media (max-width: 768px) {
-        .nav-links.active {
-            display: flex;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            flex-direction: column;
-            padding: 1rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border-radius: 0 0 16px 16px;
-        }
-        
         .notification {
             right: 10px !important;
             left: 10px !important;

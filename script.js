@@ -154,13 +154,13 @@ window.addEventListener('load', () => {
         enhanceButtonInteractions();
         enhanceNavigationStates();
         initializeSmoothScrolling();
-        initMobileNavigation();
         
     } catch (error) {
         logError(error, 'Page Load');
     }
 });
 
+// Mobile Menu Overlay Functionality
 // Enhanced Real-time Clock with Error Recovery
 function updateTime() {
     try {
@@ -272,114 +272,6 @@ const initializeMobileNavigation = () => {
 
 // Initialize mobile navigation
 // initializeMobileNavigation(); // Moved to page load event
-
-// Mobile Bottom Navigation
-function initMobileNavigation() {
-    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
-    const mobileButtons = document.querySelectorAll('.mobile-btn');
-    const sections = document.querySelectorAll('section[id]');
-    
-    // Update active nav item based on scroll position
-    function updateActiveNavItem() {
-        let current = '';
-        const isMobile = window.innerWidth <= 768;
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            const sectionId = section.getAttribute('id');
-            
-            // Skip hidden sections
-            const isVisible = window.getComputedStyle(section).display !== 'none';
-            
-            if (isVisible && window.scrollY >= (sectionTop - 200)) {
-                current = sectionId;
-            }
-        });
-        
-        mobileNavItems.forEach(item => {
-            item.classList.remove('active');
-            const itemHref = item.getAttribute('href');
-            
-            if (itemHref) {
-                const itemTarget = itemHref.substring(1); // Remove #
-                
-                // Direct match first
-                if (itemTarget === current) {
-                    item.classList.add('active');
-                }
-                // Handle mapping for desktop to mobile sections
-                else if (isMobile) {
-                    const desktopToMobileMapping = {
-                        'services': 'mobile-services',
-                        'projects': 'mobile-projects',
-                        'contact': 'mobile-contact'
-                    };
-                    
-                    // If current section is a mobile section, activate corresponding nav item
-                    if (current.startsWith('mobile-')) {
-                        const baseSection = current.replace('mobile-', '');
-                        if (itemTarget === baseSection || itemTarget === current) {
-                            item.classList.add('active');
-                        }
-                    }
-                }
-            }
-        });
-    }
-    
-    // Handle mobile nav items (both internal sections and external pages)
-    mobileNavItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            const href = item.getAttribute('href');
-            
-            // Check if it's an external link (contains .html)
-            if (href && href.includes('.html')) {
-                // Let the browser handle external navigation normally
-                return;
-            }
-            
-            // Handle internal section navigation - let the smooth scrolling handle it
-            // Just update active state immediately for better UX
-            if (href && href.startsWith('#')) {
-                mobileNavItems.forEach(navItem => navItem.classList.remove('active'));
-                item.classList.add('active');
-            }
-        });
-    });
-    
-    // Handle mobile hero buttons (About Me, View Work, Get In Touch)
-    mobileButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            const href = button.getAttribute('href');
-            
-            // Check if it's an external link
-            if (href && href.includes('.html')) {
-                return; // Let browser handle external navigation
-            }
-            
-            // Handle internal section navigation
-            if (href && href.startsWith('#')) {
-                // Update mobile nav active state immediately for better UX
-                const targetId = href.substring(1);
-                
-                mobileNavItems.forEach(navItem => {
-                    navItem.classList.remove('active');
-                    const navHref = navItem.getAttribute('href');
-                    if (navHref === href) {
-                        navItem.classList.add('active');
-                    }
-                });
-            }
-        });
-    });
-    
-    // Update active item on scroll
-    window.addEventListener('scroll', updateActiveNavItem);
-    
-    // Initial call
-    updateActiveNavItem();
-}
 
 // Mobile form handling
 function initMobileForms() {
@@ -1069,19 +961,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log('Portfolio website initialized successfully!');
 });
-
-// Service Worker registration for PWA capabilities (optional)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then((registration) => {
-                console.log('ServiceWorker registration successful');
-            })
-            .catch((err) => {
-                console.log('ServiceWorker registration failed');
-            });
-    });
-}
 
 // Initialize all responsive features when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
