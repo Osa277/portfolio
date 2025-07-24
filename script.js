@@ -154,6 +154,7 @@ window.addEventListener('load', () => {
         enhanceButtonInteractions();
         enhanceNavigationStates();
         initializeSmoothScrolling();
+        initMobileStickyNavigation();
         
     } catch (error) {
         logError(error, 'Page Load');
@@ -272,6 +273,75 @@ const initializeMobileNavigation = () => {
 
 // Initialize mobile navigation
 // initializeMobileNavigation(); // Moved to page load event
+
+// Mobile Sticky Navigation
+function initMobileStickyNavigation() {
+    const mobileNavItems = document.querySelectorAll('.mobile-sticky-nav .mobile-nav-item');
+    const sections = document.querySelectorAll('section[id]');
+    
+    // Update active nav item based on scroll position
+    function updateActiveNavItem() {
+        let current = '';
+        const isMobile = window.innerWidth <= 768;
+        
+        if (!isMobile) return; // Only run on mobile
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionId = section.getAttribute('id');
+            
+            // Skip hidden sections
+            const isVisible = window.getComputedStyle(section).display !== 'none';
+            
+            if (isVisible && window.scrollY >= (sectionTop - 200)) {
+                current = sectionId;
+            }
+        });
+        
+        mobileNavItems.forEach(item => {
+            item.classList.remove('active');
+            const itemHref = item.getAttribute('href');
+            
+            if (itemHref) {
+                const itemTarget = itemHref.substring(1); // Remove #
+                
+                // Handle mapping for desktop to mobile sections
+                if (current.startsWith('mobile-')) {
+                    const baseSection = current.replace('mobile-', '');
+                    if (itemTarget === baseSection || itemTarget === current) {
+                        item.classList.add('active');
+                    }
+                } else if (itemTarget === current) {
+                    item.classList.add('active');
+                }
+            }
+        });
+    }
+    
+    // Handle mobile nav item clicks
+    mobileNavItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            const href = item.getAttribute('href');
+            
+            // Check if it's an external link (contains .html)
+            if (href && href.includes('.html')) {
+                return; // Let browser handle external navigation
+            }
+            
+            // Handle internal section navigation
+            if (href && href.startsWith('#')) {
+                mobileNavItems.forEach(navItem => navItem.classList.remove('active'));
+                item.classList.add('active');
+            }
+        });
+    });
+    
+    // Update active item on scroll
+    window.addEventListener('scroll', updateActiveNavItem);
+    
+    // Initial call
+    updateActiveNavItem();
+}
 
 // Mobile form handling
 function initMobileForms() {
