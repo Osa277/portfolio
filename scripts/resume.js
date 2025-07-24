@@ -46,13 +46,29 @@ function initializeMobileMenu() {
 
 // PDF Controls
 function initializePDFControls() {
-    const viewPDFBtn = document.querySelector('.view-pdf-btn');
+    const viewPDFBtn = document.querySelector('.view-btn');
     const pdfEmbedSection = document.querySelector('.pdf-embed-section');
-    const pdfViewer = document.querySelector('.pdf-viewer');
+    const pdfViewer = document.querySelector('#pdf-viewer');
     const pdfIframe = document.querySelector('#pdf-iframe');
     const fullscreenBtn = document.querySelector('.fullscreen-btn');
-    const downloadBtn = document.querySelector('.download-pdf-btn');
-    const hideBtn = document.querySelector('.hide-pdf-btn');
+    const downloadBtn = document.querySelector('.download-btn');
+    const hideBtn = document.querySelector('.hide-btn');
+
+    // Make togglePdfView function global
+    window.togglePdfView = function() {
+        const pdfViewer = document.querySelector('#pdf-viewer');
+        const toggleText = document.querySelector('#pdf-toggle-text');
+        
+        if (pdfViewer) {
+            if (pdfViewer.style.display === 'none') {
+                pdfViewer.style.display = 'block';
+                if (toggleText) toggleText.textContent = 'Hide PDF';
+            } else {
+                pdfViewer.style.display = 'none';
+                if (toggleText) toggleText.textContent = 'Show PDF';
+            }
+        }
+    };
 
     // Show PDF viewer
     if (viewPDFBtn && pdfEmbedSection) {

@@ -484,6 +484,11 @@ body {
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
+.pdf-container {
+    width: 100%;
+    margin-top: 1rem;
+}
+
 .pdf-viewer {
     border-radius: 12px;
     overflow: hidden;
