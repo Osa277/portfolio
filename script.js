@@ -304,18 +304,25 @@ function initMobileNavigation() {
             if (itemHref) {
                 const itemTarget = itemHref.substring(1); // Remove #
                 
-                // Map mobile sections back to main navigation
-                const mobileToMainMapping = {
-                    'mobile-services': 'services',
-                    'mobile-projects': 'projects',
-                    'mobile-contact': 'contact'
-                };
-                
-                const mappedCurrent = mobileToMainMapping[current] || current;
-                
-                if (itemTarget === mappedCurrent || 
-                    (current && itemHref === `#${current}`)) {
+                // Direct match first
+                if (itemTarget === current) {
                     item.classList.add('active');
+                }
+                // Handle mapping for desktop to mobile sections
+                else if (isMobile) {
+                    const desktopToMobileMapping = {
+                        'services': 'mobile-services',
+                        'projects': 'mobile-projects',
+                        'contact': 'mobile-contact'
+                    };
+                    
+                    // If current section is a mobile section, activate corresponding nav item
+                    if (current.startsWith('mobile-')) {
+                        const baseSection = current.replace('mobile-', '');
+                        if (itemTarget === baseSection || itemTarget === current) {
+                            item.classList.add('active');
+                        }
+                    }
                 }
             }
         });
@@ -351,12 +358,15 @@ function initMobileNavigation() {
                 return; // Let browser handle external navigation
             }
             
-            // Handle internal section navigation - let smooth scrolling handle the rest
+            // Handle internal section navigation
             if (href && href.startsWith('#')) {
-                // Update mobile nav active state immediately
+                // Update mobile nav active state immediately for better UX
+                const targetId = href.substring(1);
+                
                 mobileNavItems.forEach(navItem => {
                     navItem.classList.remove('active');
-                    if (navItem.getAttribute('href') === href) {
+                    const navHref = navItem.getAttribute('href');
+                    if (navHref === href) {
                         navItem.classList.add('active');
                     }
                 });
@@ -540,6 +550,25 @@ function initializeSmoothScrolling() {
                         if (mobileMapping[targetId]) {
                             targetElement = document.getElementById(mobileMapping[targetId]);
                             targetId = mobileMapping[targetId];
+                        }
+                    }
+                    
+                    // Final fallback - if target still not found, try common alternatives
+                    if (!targetElement) {
+                        const fallbackMapping = {
+                            'work': 'projects',
+                            'portfolio': 'projects',
+                            'get-in-touch': 'contact',
+                            'touch': 'contact'
+                        };
+                        
+                        const fallbackTarget = fallbackMapping[targetId];
+                        if (fallbackTarget) {
+                            targetElement = document.getElementById(fallbackTarget);
+                            if (!targetElement && window.innerWidth <= 768) {
+                                // Try mobile version of fallback
+                                targetElement = document.getElementById(`mobile-${fallbackTarget}`);
+                            }
                         }
                     }
                     
