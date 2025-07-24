@@ -1,0 +1,60 @@
+# GitHub Pages Configuration
+# This file is used by GitHub Pages for Jekyll processing
+# Since we're using a static site, we exclude Jekyll
+
+# Exclude Jekyll processing
+markdown: kramdown
+highlighter: rouge
+
+# Site settings
+title: "Asiyanbi Olalekan Samuel - Professional Portfolio"
+description: "Full-stack developer specializing in modern web technologies and mobile-first design"
+baseurl: "/portfolio"
+url: "https://osa277.github.io"
+
+# Author information
+author:
+  name: "Asiyanbi Olalekan Samuel"
+  email: "samuel.olalekan@email.com"
+  github: "Osa277"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /:collection/:name/
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - README.md
+  - LICENSE
+  - .gitignore
+  - .vscode/
+  - node_modules/
+  - package*.json
+  - Gemfile
+  - Gemfile.lock
+
+# Include in processing
+include:
+  - _pages
+
+# SEO settings
+google_analytics: "G-XXXXXXXXXX" # Replace with your GA tracking ID
+google_site_verification: "XXXXXXXXXXXXXXXXXXXX" # Replace with your verification code
+
+# Social media
+social:
+  github: Osa277
+  linkedin: asiyanbi-samuel
+  twitter: asiyanbi_samuel

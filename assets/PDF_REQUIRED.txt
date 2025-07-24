@@ -1,0 +1,23 @@
+# PDF FILE REQUIRED
+
+## Missing File: Asiyanbi-full-stack-cv.pdf
+
+The resume page is looking for your CV PDF file at:
+📁 `assets/Asiyanbi-full-stack-cv.pdf`
+
+### To Fix the 404 Error:
+
+1. **Locate your CV PDF file** on your computer
+2. **Copy it** to the `assets/` folder in your portfolio
+3. **Rename it** to: `Asiyanbi-full-stack-cv.pdf`
+
+### Once Added:
+✅ The "View CV" button will display your PDF in the browser
+✅ The "Download CV" button will let visitors download your resume
+✅ The PDF viewer will work properly on the resume page
+
+### Current File Path Expected:
+`c:\Users\user\Desktop\CV\assets\Asiyanbi-full-stack-cv.pdf`
+
+### Resume Page URL:
+http://localhost:8000/pages/resume.html

@@ -1,58 +1,152 @@
-// Preloader
+// Enhanced Portfolio JavaScript with Error Handling and Performance Optimizations
+
+// Utility Functions
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => document.querySelectorAll(selector);
+
+// Error Logging
+const logError = (error, context = 'Unknown') => {
+    console.error(`[Portfolio Error - ${context}]:`, error);
+    // In production, you might want to send this to an error tracking service
+};
+
+// Performance Monitoring
+const performanceMetrics = {
+    startTime: performance.now(),
+    markEvent: (eventName) => {
+        const time = performance.now();
+        console.log(`[Performance] ${eventName}: ${(time - performanceMetrics.startTime).toFixed(2)}ms`);
+    }
+};
+
+// Enhanced Preloader with Error Handling
 window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        preloader.style.opacity = '0';
-        setTimeout(() => {
-            preloader.style.display = 'none';
-            document.body.style.overflow = 'visible';
-        }, 500);
+    try {
+        const preloader = $('#preloader');
+        if (preloader) {
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                document.body.style.overflow = 'visible';
+                performanceMetrics.markEvent('Preloader Hidden');
+            }, 500);
+        }
+    } catch (error) {
+        logError(error, 'Preloader');
     }
 });
 
-// Real-time clock
+// Enhanced Real-time Clock with Error Recovery
 function updateTime() {
-    const timeElement = document.getElementById('time');
-    if (!timeElement) return;
-    
-    const now = new Date();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    let seconds = now.getSeconds();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    
-    hours = hours % 12;
-    hours = hours ? hours : 12; // 0 should be 12
-    hours = hours < 10 ? '0' + hours : hours;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-    
-    const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
-    timeElement.textContent = timeString;
+    try {
+        const timeElement = $('#time');
+        if (!timeElement) return;
+        
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let seconds = now.getSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        
+        hours = hours % 12;
+        hours = hours ? hours : 12; // 0 should be 12
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        
+        const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+        timeElement.textContent = timeString;
+    } catch (error) {
+        logError(error, 'Clock Update');
+        // Retry after a delay
+        setTimeout(updateTime, 5000);
+    }
 }
 
-// Update time every second
-setInterval(updateTime, 1000);
+// Update time every second with error handling
+const clockInterval = setInterval(() => {
+    try {
+        updateTime();
+    } catch (error) {
+        logError(error, 'Clock Interval');
+        clearInterval(clockInterval);
+        // Restart clock after error
+        setTimeout(() => {
+            setInterval(updateTime, 1000);
+        }, 5000);
+    }
+}, 1000);
+
 updateTime(); // Initial call
 
-// Mobile Navigation Toggle
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
+// Enhanced Mobile Navigation with Accessibility
+const initializeMobileNavigation = () => {
+    try {
+        const hamburger = $('.hamburger');
+        const navMenu = $('.nav-menu');
 
-if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
+        if (!hamburger || !navMenu) {
+            console.warn('[Navigation] Mobile navigation elements not found');
+            return;
+        }
 
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+        // Add ARIA attributes for accessibility
+        hamburger.setAttribute('aria-label', 'Toggle navigation menu');
+        hamburger.setAttribute('aria-expanded', 'false');
+        navMenu.setAttribute('aria-hidden', 'true');
+
+        hamburger.addEventListener('click', (e) => {
+            try {
+                e.preventDefault();
+                const isActive = hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                
+                // Update ARIA attributes
+                hamburger.setAttribute('aria-expanded', isActive.toString());
+                navMenu.setAttribute('aria-hidden', (!isActive).toString());
+                
+                performanceMetrics.markEvent('Mobile Menu Toggled');
+            } catch (error) {
+                logError(error, 'Mobile Menu Toggle');
+            }
         });
-    });
-}
+
+        // Close mobile menu when clicking on a link
+        $$('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                try {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    navMenu.setAttribute('aria-hidden', 'true');
+                } catch (error) {
+                    logError(error, 'Mobile Menu Link Click');
+                }
+            });
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                try {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    navMenu.setAttribute('aria-hidden', 'true');
+                } catch (error) {
+                    logError(error, 'Mobile Menu Escape');
+                }
+            }
+        });
+
+        performanceMetrics.markEvent('Mobile Navigation Initialized');
+    } catch (error) {
+        logError(error, 'Mobile Navigation Initialization');
+    }
+};
+
+// Initialize mobile navigation
+initializeMobileNavigation();
 
 // Mobile Bottom Navigation
 function initMobileNavigation() {
